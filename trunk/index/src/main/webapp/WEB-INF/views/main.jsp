@@ -37,7 +37,10 @@
 				out.println("<td>" + stage.getFindingStatus() + "</td>");
 				out.println("<td>" + stage.getGdSeverity() + "</td>");
 
-				out.println("<td><a href=/index/update?aid=" + stage.getAssetId() + "&fid=" + stage.getFindingId() + "&tkey=" + stage.getTargetKey() + ">"
+				out.println("<td><a href=\"/index/update?asset_id=" + stage.getAssetId() + "&finding_id=" + stage.getFindingId() + "&target_key=" + stage.getTargetKey() 
+						+ "&target_description="+stage.getTargetDescrip()+"&finding_status="+stage.getFindingStatus()+"&gd_severity="+stage.getGdSeverity()
+						+"&tool="+stage.getTool()+"&tool_version="+stage.getToolVersion()+"&gd_val_name="+stage.getGdValName()+"&owner="+stage.getOwner()
+						+"&status="+stage.getStatus()+"&last_update="+stage.getLastUpdate()+"&note="+stage.getNote()+"\">"
 						+ stage.getFindingId() + "</a></td>");
 
 				out.println("<td>" + stage.getTool() + "</td>");

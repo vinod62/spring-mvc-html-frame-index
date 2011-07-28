@@ -113,12 +113,18 @@ public class Stig {
 	public void setDateCreated(Date date_ct) {
 		this.date_created = date_ct;
 	}
+	public void setDateCreated(String date_ct) {
+		this.date_created = Date.valueOf(date_ct);
+	}
 	public Date getDateCreated() {
 		return date_created;
 	}
 
 	public void setLastUpdate(Date last_up) {
 		this.last_update = last_up;
+	}
+	public void setLastUpdate(String last_up) {
+		this.last_update = Date.valueOf(last_up);
 	}
 	public Date getLastUpdate() {
 		return last_update;
