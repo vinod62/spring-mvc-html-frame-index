@@ -7,6 +7,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-left left
+
+<table width="200" height="200" bgcolor="EFEFEF">
+<tr><td>
+<%@page import="wli.java.db.*;" %>
+
+<%
+MyDatabaseUtils mdut = new MyDatabaseUtils();
+try {
+	//mdut.setStageByDb();
+	//out.println(mdut.getStageList());
+	
+} catch (Exception e) {
+	System.out.println(e.getMessage());
+}
+%>
+</td></tr>
+</table>
 </body>
 </html>

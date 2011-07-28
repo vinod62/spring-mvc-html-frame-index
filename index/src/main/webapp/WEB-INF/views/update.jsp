@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table><tr><td><a href=/index?sid=TOLLY>TOLLY</a></td></tr></table>
+update
 </body>
 </html>
