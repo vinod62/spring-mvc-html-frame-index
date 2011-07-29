@@ -19,6 +19,7 @@ public class MyDatabaseUtils {
 	private Connection connect = null;
 	private Statement statement = null;
 	private Stig stig = null;
+	private Note note = null;
 	private ResultSet resultSet = null;
 	private List<Stig> stigs = null;
 	private List<Note> notes = null;
@@ -143,37 +144,36 @@ public class MyDatabaseUtils {
 			System.out.println("Connected to the database");
 			statement = connect.createStatement();
 			resultSet = statement.executeQuery("select * from STAGES.NOTE where GROUP_ID='" + group_id + "' order by DATE_CREATE");
-/*
+
 			while (resultSet.next()) {
 
-				stig = new Stig();
-				stig.setTargetKey(resultSet.getInt("TARGET_KEY"));
-				stig.setTargetDescrip(resultSet.getString("TARGET_DESCRIP"));
-				stig.setFindingId(resultSet.getString("FINDING_ID"));
-				stig.setFindingStatus(resultSet.getString("FINDING_STATUS"));
-				stig.setTool(resultSet.getString("TOOL"));
-				stig.setToolVersion(resultSet.getString("TOOL_VERSION"));
-				stig.setAuthenticatedFinding(resultSet.getString("AUTHENTICATED_FINDING"));
-				stig.setGdValName(resultSet.getString("GD_VAL_NAME"));
-				stig.setGdSeverity(resultSet.getString("GD_SEVERITY"));
-				stig.setOwner(resultSet.getString("OWNER"));
-				stig.setAssetId(resultSet.getString("ASSET_ID"));
-				stig.setNote(resultSet.getString("NOTE"));
-				stig.setStatus(resultSet.getString("STATUS"));
-				stig.setDateCreated(resultSet.getDate("DATE_CREATED"));
-				stig.setLastUpdate(resultSet.getDate("LAST_UPDATE"));
-				stigs.add(stig);
-				System.out.println(">>>>>>>>" + stig.getFindingId());
-
+				note = new Note();
+				note.setNoteId(resultSet.getInt("ID"));
+				note.setGroupID(resultSet.getString("GROUP_ID"));
+				note.setNote(resultSet.getString("NOTE"));
+				note.setOwner(resultSet.getString("OWNER"));
+				note.setTitle(resultSet.getString("TITLE"));
+				note.setSubject(resultSet.getString("SUBJECT"));
+				note.setDateCreated(resultSet.getString("GROUP_ID"));
+				note.setGroupID(resultSet.getString("GROUP_ID"));
+				note.setDateCreated(resultSet.getDate("DATE_CREATED"));
+				note.setLastUpdate(resultSet.getDate("LAST_UPDATE"));
+				notes.add(note);
+				System.out.println(">>>>>>>>" + note.getGroupId());
 			}
 			connect.close();
 			System.out.println("Disconnected from database");
-*/
+
 		} catch (Exception e) {
-			throw e;
+			System.out.println(e);
 		}	
 	}
+	
 	public List<Stig> getStigList() {
 		return stigs;
+	}
+	
+	public List<Note> getNoteList() {
+		return notes;
 	}
 }
