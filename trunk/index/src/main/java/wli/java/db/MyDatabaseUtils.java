@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import wli.java.forum.Note;
 import wli.java.stigs.Stig;
 
 public class MyDatabaseUtils {
@@ -20,7 +21,9 @@ public class MyDatabaseUtils {
 	private Stig stig = null;
 	private ResultSet resultSet = null;
 	private List<Stig> stigs = null;
+	private List<Note> notes = null;
 
+	
 	public void saveStig(Stig stig) throws Exception {
 		try {
 
@@ -129,7 +132,47 @@ public class MyDatabaseUtils {
 			throw e;
 		}
 	}
+	
+	public void setNotesByDb(String group_id) throws Exception {
+		notes = new ArrayList<Note>();
 
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/stages?" + "user=root&password=li0578");
+			System.out.println("Connected to the database");
+			statement = connect.createStatement();
+			resultSet = statement.executeQuery("select * from STAGES.NOTE where GROUP_ID='" + group_id + "' order by DATE_CREATE");
+/*
+			while (resultSet.next()) {
+
+				stig = new Stig();
+				stig.setTargetKey(resultSet.getInt("TARGET_KEY"));
+				stig.setTargetDescrip(resultSet.getString("TARGET_DESCRIP"));
+				stig.setFindingId(resultSet.getString("FINDING_ID"));
+				stig.setFindingStatus(resultSet.getString("FINDING_STATUS"));
+				stig.setTool(resultSet.getString("TOOL"));
+				stig.setToolVersion(resultSet.getString("TOOL_VERSION"));
+				stig.setAuthenticatedFinding(resultSet.getString("AUTHENTICATED_FINDING"));
+				stig.setGdValName(resultSet.getString("GD_VAL_NAME"));
+				stig.setGdSeverity(resultSet.getString("GD_SEVERITY"));
+				stig.setOwner(resultSet.getString("OWNER"));
+				stig.setAssetId(resultSet.getString("ASSET_ID"));
+				stig.setNote(resultSet.getString("NOTE"));
+				stig.setStatus(resultSet.getString("STATUS"));
+				stig.setDateCreated(resultSet.getDate("DATE_CREATED"));
+				stig.setLastUpdate(resultSet.getDate("LAST_UPDATE"));
+				stigs.add(stig);
+				System.out.println(">>>>>>>>" + stig.getFindingId());
+
+			}
+			connect.close();
+			System.out.println("Disconnected from database");
+*/
+		} catch (Exception e) {
+			throw e;
+		}	
+	}
 	public List<Stig> getStigList() {
 		return stigs;
 	}
