@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+import java.sql.ResultSetMetaData;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -25,17 +25,21 @@ public class MyDatabaseUtils {
 	private List<Note> notes = null;
 
 	
+	
 	public void saveStig(Stig stig) throws Exception {
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
 
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/stages?" + "user=root&password=li0578");
+			connect = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/stages?"
+							+ "user=root&password=li0578");
 			System.out.println("Connected to the database");
 
 			statement = connect.createStatement();
 
-			preparedStatement = connect.prepareStatement("insert into  STAGES.TARGET values (?, ?, ?, ?, ? , ?, ?,?,?,?,?,?,?,?,?)");
+			preparedStatement = connect
+					.prepareStatement("insert into  STAGES.TARGET values (?, ?, ?, ?, ? , ?, ?,?,?,?,?,?,?,?,?)");
 
 			preparedStatement.setInt(1, stig.getTargetKey());
 			preparedStatement.setString(2, stig.getTargetDescrip());
@@ -50,11 +54,12 @@ public class MyDatabaseUtils {
 			preparedStatement.setString(11, null); // Note
 			preparedStatement.setString(12, null); // Status
 			preparedStatement.setString(13, stig.getAssetId()); // ASSET_ID
-			preparedStatement.setDate(14, new java.sql.Date(System.currentTimeMillis())); // Date
-																							// Created
-			preparedStatement.setDate(15, new java.sql.Date(System.currentTimeMillis())); // Date
-																							// last
-																							// update
+			preparedStatement.setDate(14,
+					new java.sql.Date(System.currentTimeMillis()));
+
+			preparedStatement.setDate(15,
+					new java.sql.Date(System.currentTimeMillis()));
+
 			preparedStatement.executeUpdate();
 
 			statement.close();
@@ -65,30 +70,35 @@ public class MyDatabaseUtils {
 		}
 	}
 
-	public void updateStig(Stig stig)  {
+	public void updateStig(Stig stig) {
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
 
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/stages?" + "user=root&password=li0578");
+			connect = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/stages?"
+							+ "user=root&password=li0578");
 			System.out.println("Connected to the database");
 
 			statement = connect.createStatement();
 
-			String query = "update STAGES.TARGET set GD_SEVERITY='"+stig.getGdSeverity()+"', STATUS='"+stig.getStatus()+"', LAST_UPDATE='"+stig.getLastUpdate()+"' where ASSET_ID='"+
-					stig.getAssetId()+"' and TARGET_KEY="+stig.getTargetKey()+" and FINDING_ID='"+stig.getFindingId()+"'";
-			
+			String query = "update STAGES.TARGET set GD_SEVERITY='"
+					+ stig.getGdSeverity() + "', STATUS='" + stig.getStatus()
+					+ "', LAST_UPDATE='" + stig.getLastUpdate()
+					+ "' where ASSET_ID='" + stig.getAssetId()
+					+ "' and TARGET_KEY=" + stig.getTargetKey()
+					+ " and FINDING_ID='" + stig.getFindingId() + "'";
+
 			preparedStatement = connect.prepareStatement(query);
-			System.out.println("Excuting Query>>>>>>>>>>>>>>>>>>"+preparedStatement.executeUpdate());
+			System.out.println("Excuting Query>>>>>>>>>>>>>>>>>>"
+					+ preparedStatement.executeUpdate());
 			System.out.println(query);
 			statement.close();
 			connect.close();
 
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
@@ -99,10 +109,15 @@ public class MyDatabaseUtils {
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/stages?" + "user=root&password=li0578");
+			connect = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/stages?"
+							+ "user=root&password=li0578");
 			System.out.println("Connected to the database");
 			statement = connect.createStatement();
-			resultSet = statement.executeQuery("select * from STAGES.TARGET where ASSET_ID='" + asset_id + "' order by ASSET_ID, TARGET_KEY, FINDING_STATUS DESC, GD_SEVERITY");
+			resultSet = statement
+					.executeQuery("select * from STAGES.TARGET where ASSET_ID='"
+							+ asset_id
+							+ "' order by ASSET_ID, TARGET_KEY, FINDING_STATUS DESC, GD_SEVERITY");
 
 			while (resultSet.next()) {
 
@@ -113,7 +128,8 @@ public class MyDatabaseUtils {
 				stig.setFindingStatus(resultSet.getString("FINDING_STATUS"));
 				stig.setTool(resultSet.getString("TOOL"));
 				stig.setToolVersion(resultSet.getString("TOOL_VERSION"));
-				stig.setAuthenticatedFinding(resultSet.getString("AUTHENTICATED_FINDING"));
+				stig.setAuthenticatedFinding(resultSet
+						.getString("AUTHENTICATED_FINDING"));
 				stig.setGdValName(resultSet.getString("GD_VAL_NAME"));
 				stig.setGdSeverity(resultSet.getString("GD_SEVERITY"));
 				stig.setOwner(resultSet.getString("OWNER"));
@@ -133,17 +149,21 @@ public class MyDatabaseUtils {
 			throw e;
 		}
 	}
-	
+
 	public void setNotesByDb(String group_id) throws Exception {
 		notes = new ArrayList<Note>();
 
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/stages?" + "user=root&password=li0578");
+			connect = DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/stages?"
+							+ "user=root&password=li0578");
 			System.out.println("Connected to the database");
 			statement = connect.createStatement();
-			resultSet = statement.executeQuery("select * from STAGES.NOTE where GROUP_ID='" + group_id + "' order by DATE_CREATE");
+			resultSet = statement
+					.executeQuery("select * from STAGES.NOTE where GROUP_ID='"
+							+ group_id + "' order by DATE_CREATE");
 
 			while (resultSet.next()) {
 
@@ -166,13 +186,13 @@ public class MyDatabaseUtils {
 
 		} catch (Exception e) {
 			System.out.println(e);
-		}	
+		}
 	}
-	
+
 	public List<Stig> getStigList() {
 		return stigs;
 	}
-	
+
 	public List<Note> getNoteList() {
 		return notes;
 	}

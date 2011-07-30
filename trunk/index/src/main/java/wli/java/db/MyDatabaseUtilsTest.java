@@ -2,6 +2,12 @@ package wli.java.db;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import org.junit.Test;
@@ -46,8 +52,39 @@ public class MyDatabaseUtilsTest {
 	}
 	
 	@Test
-	public void testSaveStage() {
-		fail("Not yet implemented");
-	}
+	public void testDatabase() {
 
+		String dataBaseName = "jdbc:mysql://127.0.0.1/forum";
+		String dbDriverName = "com.mysql.jdbc.Driver";
+		String userName = "root";
+		String password = "li0578";
+
+		try {
+			Class.forName(dbDriverName).newInstance();
+			Connection con = DriverManager.getConnection(dataBaseName,
+					userName, password);
+			Statement stmt = con.createStatement();
+	
+			ResultSet res = stmt.executeQuery("SELECT * FROM forum.test;");
+			ResultSetMetaData rsmd = res.getMetaData();
+		
+			int number_of_colums = rsmd.getColumnCount();
+
+			for (int i = 1; i <= number_of_colums; ++i) {
+				System.out.println(rsmd.getColumnName(i));
+				System.out.println(rsmd.getColumnTypeName(i));
+				System.out.println("" + rsmd.getColumnDisplaySize(i));
+			}
+			stmt.close();
+			con.close();
+
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
 }
