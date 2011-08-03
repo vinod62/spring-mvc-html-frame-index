@@ -30,6 +30,7 @@
 
 		String sid = request.getParameter("sid");
 		String finding_id = request.getParameter("finding_id");
+		String show_vid = request.getParameter("show_vid");
 
 		MyDatabaseUtils mdut = new MyDatabaseUtils();
 
@@ -76,20 +77,23 @@
 				out.println("<td><a href=\"/index/update?asset_id=" + stig.getAssetId() + "&finding_id=" + stig.getFindingId() + "&target_key=" + stig.getTargetKey()
 						+ "&target_description=" + stig.getTargetDescrip() + "&finding_status=" + stig.getFindingStatus() + "&gd_severity=" + stig.getGdSeverity() + "&tool="
 						+ stig.getTool() + "&tool_version=" + stig.getToolVersion() + "&gd_val_name=" + stig.getGdValName() + "&owner=" + stig.getOwner() + "&status="
-						+ stig.getStatus() + "&last_update=" + stig.getLastUpdate() + "&note_counter=" + stig.getNoteCounter() + "&action_id=edit_all\" method='post' target=_blank>"
-						+ "EDIT</a></td>");
+						+ stig.getStatus() + "&last_update=" + stig.getLastUpdate() + "&note_counter=" + stig.getNoteCounter()
+						+ "&action_id=edit_all\" method='post' target=_blank>" + "EDIT</a></td>");
 				out.println("<td>" + stig.getAssetId() + "</td>");
 				out.println("<td>" + stig.getTargetDescrip() + "</td>");
 				out.println("<td>" + stig.getTargetKey() + "</td>");
 				out.println("<td>" + stig.getFindingStatus() + "</td>");
 				out.println("<td>" + stig.getGdSeverity() + "</td>");
-
-				out.println("<td><a href=\"/index/main?asset_id=" + stig.getAssetId() + "&finding_id=" + stig.getFindingId() + "&target_key=" + stig.getTargetKey()
-						+ "&target_description=" + stig.getTargetDescrip() + "&finding_status=" + stig.getFindingStatus() + "&gd_severity=" + stig.getGdSeverity() + "&tool="
-						+ stig.getTool() + "&tool_version=" + stig.getToolVersion() + "&gd_val_name=" + stig.getGdValName() + "&owner=" + stig.getOwner() + "&status="
-						+ stig.getStatus() + "&last_update=" + stig.getLastUpdate() + "&note_counter=" + stig.getNoteCounter() + "&action_id=search_by_finding_id\" target=_blank>"
-						+ stig.getFindingId() + "</a></td>");
-
+				
+				if (show_vid != null && show_vid.equals("0")) {
+					out.println("<td>" + stig.getFindingId() + "</td>");
+				} else {
+					out.println("<td><a href=\"/index/main?asset_id=" + stig.getAssetId() + "&finding_id=" + stig.getFindingId() + "&target_key=" + stig.getTargetKey()
+							+ "&target_description=" + stig.getTargetDescrip() + "&finding_status=" + stig.getFindingStatus() + "&gd_severity=" + stig.getGdSeverity()
+							+ "&tool=" + stig.getTool() + "&tool_version=" + stig.getToolVersion() + "&gd_val_name=" + stig.getGdValName() + "&owner=" + stig.getOwner()
+							+ "&status=" + stig.getStatus() + "&last_update=" + stig.getLastUpdate() + "&note_counter=" + stig.getNoteCounter()
+							+ "&action_id=search_by_finding_id&show_vid=0\" target=_blank>" + stig.getFindingId() + "</a></td>");
+				}
 				out.println("<td>" + stig.getTool() + "</td>");
 				out.println("<td>" + stig.getToolVersion() + "</td>");
 				out.println("<td>" + stig.getOwner() + "</td>");
@@ -104,11 +108,11 @@
 
 				out.println("<td>" + stig.getGdValName() + "</td>");
 				//out.println("<td align='center'>[" + stig.getNoteCounter() + "]</td>");
-				out.println("<td align='center'><a href=\"/index/update?asset_id=" + stig.getAssetId() + "&finding_id=" + stig.getFindingId() + "&target_key=" + stig.getTargetKey()
-						+ "&target_description=" + stig.getTargetDescrip() + "&finding_status=" + stig.getFindingStatus() + "&gd_severity=" + stig.getGdSeverity() + "&tool="
-						+ stig.getTool() + "&tool_version=" + stig.getToolVersion() + "&gd_val_name=" + stig.getGdValName() + "&owner=" + stig.getOwner() + "&status="
-						+ stig.getStatus() + "&last_update=" + stig.getLastUpdate() + "&note_counter=" + stig.getNoteCounter() + "&action_id=edit_all\" method='post' target=_blank>"
-						+ "["+stig.getNoteCounter() +"]</a></td>");
+				out.println("<td align='center'><a href=\"/index/update?asset_id=" + stig.getAssetId() + "&finding_id=" + stig.getFindingId() + "&target_key="
+						+ stig.getTargetKey() + "&target_description=" + stig.getTargetDescrip() + "&finding_status=" + stig.getFindingStatus() + "&gd_severity="
+						+ stig.getGdSeverity() + "&tool=" + stig.getTool() + "&tool_version=" + stig.getToolVersion() + "&gd_val_name=" + stig.getGdValName() + "&owner="
+						+ stig.getOwner() + "&status=" + stig.getStatus() + "&last_update=" + stig.getLastUpdate() + "&note_counter=" + stig.getNoteCounter()
+						+ "&action_id=edit_all\" method='post' target=_blank>" + "[" + stig.getNoteCounter() + "]</a></td>");
 				out.println("</tr>");
 			}
 			out.println("</table>");
