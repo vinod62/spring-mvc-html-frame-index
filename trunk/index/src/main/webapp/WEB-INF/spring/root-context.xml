@@ -19,6 +19,7 @@
 	<mvc:view-controller path="/left" view-name="left"/>
 	<mvc:view-controller path="/main" view-name="main"/>
 	<mvc:view-controller path="/update" view-name="update"/>
+	
 		
 	<!-- Configures Handler Interceptors -->	
 	<mvc:interceptors>
