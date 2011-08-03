@@ -22,22 +22,22 @@ public class MyDatabaseUtilsTest {
 		MyDatabaseUtils mdbut = new MyDatabaseUtils();
 		try {
 			StigXmlParser read = new StigXmlParser();
-			List<Stig> readConfig = read.readConfig("C:\\STIGS\\RODEO\\VMS6X.xml");
+			List<Stig> readConfig = read.readConfig("C:\\STIGS\\HAMLET\\VMS6X.xml");
 			
 			int count_nr = 0; int count_cat1 =0; int count_cat2=0; int count_cat3 =0;
-			for (Stig stage : readConfig) {
+			for (Stig stig : readConfig) {
 				//System.out.println(stage);
 				
-				mdbut.saveStig(stage);
+				mdbut.saveStig(stig);
 				
-				if(stage.getFindingStatus().equals("NR")) {
+				if(stig.getFindingStatus().equals("NR")) {
 					count_nr++;
-					if(stage.getGdSeverity().equals("1")) count_cat1++;
-					if(stage.getGdSeverity().equals("2")) count_cat2++;
-					if(stage.getGdSeverity().equals("3")) count_cat3++;
+					if(stig.getGdSeverity().equals("1")) count_cat1++;
+					if(stig.getGdSeverity().equals("2")) count_cat2++;
+					if(stig.getGdSeverity().equals("3")) count_cat3++;
 				}
 				
-				System.out.print(stage.getAssetId()+"	|	"+stage.getFindingId()+"	|	"+stage.getFindingStatus()+"	|	"+stage.getTargetDescrip()+"	|	"+stage.getGdSeverity()+"\n");
+				System.out.print(stig.getAssetId()+"	|	"+stig.getFindingId()+"	|	"+stig.getFindingStatus()+"	|	"+stig.getTargetDescrip()+"	|	"+stig.getGdSeverity()+"\n");
 			}
 			
 			System.out.println("total nr="+count_nr);
