@@ -94,6 +94,7 @@
 		}
 
 		if (action_id != null && action_id.equals("edit_all")) {
+			String show_vid = request.getParameter("show_vid");
 			Stig stig = new Stig();
 			stig.setAssetId("" + request.getParameter("asset_id"));
 			stig.setFindingId("" + request.getParameter("finding_id"));
