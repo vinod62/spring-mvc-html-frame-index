@@ -16,10 +16,10 @@ public class Stig {
 	private String owner;
 	private String status;
 	private String note;
+	private int note_counter;
 	private Date date_created;
 	private Date last_update;
-	
-	
+	private StigNote stig_note;
 
 	public void setAssetId(String assetid) {
 		this.asset_id = assetid;
@@ -129,7 +129,26 @@ public class Stig {
 	public Date getLastUpdate() {
 		return last_update;
 	}
-	
+
+	public void setStigNote(StigNote stig_note) {
+		this.stig_note = stig_note;
+	}
+	public StigNote getStigNote() {
+		return stig_note;
+	}
+	public void setNoteCounter(int note_counter) {
+		this.note_counter = note_counter;
+	}
+	public void setNoteCounter(String note_counter) {
+		try {
+			this.note_counter = Integer.parseInt(note_counter);
+		} catch (Exception e) {
+
+		}
+	}
+	public int getNoteCounter() {
+		return note_counter;
+	}
 	public String toXmlString() {
 		return ("<TARGET><TARGET_KEY>" + this.getTargetKey() + "</TARGET_KEY>" + "<TARGET_DESCRIP>" + this.getTargetDescrip() + "</TARGET_DESCRIP>" + "<FINDING>"
 				+ "<FINDING_ID TYPE=\"VK\">" + this.getFindingId() + "</FINDING_ID>" + "<FINDING_STATUS>" + this.getFindingStatus() + "</FINDING_STATUS>" + "<TOOL>"
