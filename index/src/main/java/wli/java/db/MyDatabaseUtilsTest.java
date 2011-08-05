@@ -22,13 +22,13 @@ public class MyDatabaseUtilsTest {
 		MyDatabaseUtils mdbut = new MyDatabaseUtils();
 		try {
 			StigXmlParser read = new StigXmlParser();
-			List<Stig> readConfig = read.readConfig("C:\\STIGS\\HAMLET\\VMS6X.xml");
+			List<Stig> readConfig = read.readConfig("C:\\STIGS\\LEAR\\VMS6X.xml");
 			
 			int count_nr = 0; int count_cat1 =0; int count_cat2=0; int count_cat3 =0;
 			for (Stig stig : readConfig) {
 				//System.out.println(stage);
 				
-				mdbut.saveStig(stig);
+				mdbut.saveStig(stig, "tolly", "SHERREL");
 				
 				if(stig.getFindingStatus().equals("NR")) {
 					count_nr++;

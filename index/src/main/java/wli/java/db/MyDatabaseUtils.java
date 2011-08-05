@@ -24,12 +24,12 @@ public class MyDatabaseUtils {
 	private List<Stig> stigs = null;
 	private List<StigNote> notes = null;
 
-	public void saveStig(Stig stig) throws Exception {
+	public void saveStig(Stig stig, String host, String owner) throws Exception {
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
 
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/stages?" + "user=root&password=li0578");
+			connect = DriverManager.getConnection("jdbc:mysql://"+host+":3306/stages?" + "user=root&password=li0578");
 			System.out.println("Connected to the database");
 
 			statement = connect.createStatement();
@@ -45,7 +45,7 @@ public class MyDatabaseUtils {
 			preparedStatement.setBoolean(7, stig.getAuthenticatedFinding());
 			preparedStatement.setString(8, stig.getGdValName());
 			preparedStatement.setString(9, stig.getGdSeverity());
-			preparedStatement.setString(10, "SHERREL");
+			preparedStatement.setString(10, owner);
 			preparedStatement.setString(11, null);
 			preparedStatement.setString(12, null);
 			preparedStatement.setString(13, stig.getAssetId());

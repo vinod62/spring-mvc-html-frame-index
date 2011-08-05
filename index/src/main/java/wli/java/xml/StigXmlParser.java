@@ -52,6 +52,8 @@ public class StigXmlParser {
 			String asset_id_value = null;
 			Vector<String> v = new Vector<String>();
 
+			System.out.println("");
+
 			while (eventReader.hasNext()) {
 				XMLEvent event = eventReader.nextEvent();
 
@@ -60,12 +62,12 @@ public class StigXmlParser {
 
 					if (event.isStartElement()) {
 						if (startElement.getName().getLocalPart() == (asset_id)) {
+							//System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
 							Iterator<Attribute> attributes = startElement.getAttributes();
 							while (attributes.hasNext()) {
 								Attribute attribute = attributes.next();
 								if (attribute.getName().toString().equals("TYPE")) {
-									// asset_id_value =
-									// event.asCharacters().getData();
+									System.out.println("AAAAAAAAAAAAAAAAAAAAAAA============="+attribute.getValue());
 								}
 							}
 						}
@@ -73,10 +75,11 @@ public class StigXmlParser {
 
 					if (event.isStartElement()) {
 						if (startElement.getName().getLocalPart() == (asset_id)) {
-
+							
 							event = eventReader.nextEvent();
 							asset_id_value = event.asCharacters().getData();
 							v.add(asset_id_value.toUpperCase());
+							System.out.println("BBBBBBBBBBBBBBBBBB==========="+asset_id_value);
 						}
 					}
 
