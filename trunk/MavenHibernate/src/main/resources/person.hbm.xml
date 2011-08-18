@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="wli.hibernate.db.Person" table="PERSON">
+		<id name="id" type="int" column="PERSON_ID">
+			<generator class="native" />
+		</id>
+		<property name="age" type="int" />
+		<property name="firstname" type="string" />
+		<property name="lastname" type="string" />
+
+		<set name="events" table="PERSON_EVENT">
+			<key column="PERSON_ID" />
+			<many-to-many column="EVENT_ID" class="wli.hibernate.db.Event" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>
